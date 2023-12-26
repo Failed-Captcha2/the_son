@@ -4,32 +4,62 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-   public Transform player;
+    public Transform player;
     public float playerSpeed;
-    private Vector2 move;
+    private Vector3 move;
     public Animator animator;
+    public SpriteRenderer sprite;
     private bool walking;
     // Start is called before the first frame update
     void Start()
     {
-
+        player.transform.position = Vector3.zero;
     }
 
     // Update is called once per frame
     void Update()
-    {
-        move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); //converst key input into vector
+    {   
+        //key input
+        move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); //converst key input into vector
 
-        if(!move.Equals(new Vector2(0,0)) && !walking){
-            //animate player
+        //mouse input
+         if(Input.GetMouseButton(0)){
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            
+            if (worldPosition.x< player.transform.position.x){
+                move.x = -1;
+            }else{
+                move.x = 1;
+            }
+            if (worldPosition.y< player.transform.position.y){
+                move.y = -1;
+            }else{
+                move.y = 1;
+            }
+        }
+
+        //animation 
+        if((!move.Equals(Vector3.zero)||Input.GetMouseButton(0)) && !walking){
             animator.Play("walking",0,0);
             walking = true;
-        }else if(move.Equals(new Vector2(0,0)) && walking){
+
+        }else if(move.Equals(Vector3.zero) && !Input.GetMouseButton(0) && walking){
             animator.Play("standing",0,0);
             walking = false;
         }
+
+        //flip sprite
+        if(move.x<0 && sprite.flipX){
+            sprite.flipX = false;
+        }else if(move.x>0 && !sprite.flipX){
+            sprite.flipX = true;
+        }
         
+        //change position
         move = move*Time.deltaTime*playerSpeed;
-            player.transform.position = new Vector3(player.position.x + move.x, player.position.y + move.y, player.position.y + move.y);
+            move.x = player.position.x + move.x;
+            move.y = player.position.y + move.y;
+            move.z = move.y;
+            player.transform.position = move;
     }
 }

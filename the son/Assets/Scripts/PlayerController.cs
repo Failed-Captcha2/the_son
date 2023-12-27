@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Transform player;
-    public Rigidbody2D playerRB;
     public float playerSpeed;
-    private Vector3 move;
-    public Animator animator;
-    public SpriteRenderer sprite;
     public Sprite defaultSprite;
+    public bool playSound;
+
+    private Transform player;
+    public Rigidbody2D playerRB;
+    private Animator animator;
+    private SpriteRenderer sprite;
+    private AudioSource sound;
+
     private bool walking;
+    private Vector3 move;
     // Start is called before the first frame update
     void Start()
     {
+        player = GetComponent<Transform>();
         player.transform.position = Vector3.zero;
+        playerRB = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
+        sound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -41,15 +50,17 @@ public class PlayerController : MonoBehaviour
         }
 
         //animation 
-        if((!move.Equals(Vector3.zero)||Input.GetMouseButton(0)) && !walking){
-            animator.Play("walking",0,0);
-            walking = true;
+        if((!move.Equals(Vector3.zero)||Input.GetMouseButton(0))&&!walking){
+                animator.Play("walking",0,0);
+                walking = true;
 
         }else if(move.Equals(Vector3.zero) && !Input.GetMouseButton(0) && walking){
             animator.Play("standing",0,0);
             sprite.sprite = defaultSprite;
             walking = false;
         }
+
+        if(playSound){sound.Play();} //walking audio
 
         //flip sprite
         if(move.x<0 && sprite.flipX){

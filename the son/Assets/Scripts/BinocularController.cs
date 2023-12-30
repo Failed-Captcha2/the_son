@@ -8,6 +8,7 @@ public class BinocularController : MonoBehaviour
     public Transform cameraTransform;
     public Camera mainCamera;
     public GameObject binocViewScreen;
+    public BirdBook book;
     public Material pixelation;
     public Sprite[] sprites; //[0] is binnocs.png, [1] is eye.png
 
@@ -65,6 +66,7 @@ public class BinocularController : MonoBehaviour
             player.SetActive(false);//hide player
             binocViewScreen.SetActive(true);//show binocular view screen
             viewSprite.sprite = sprites[1];//change to eye sprite
+            book.updatePage(0);
 
             //zoom in to binnoc view
             mainCamera.orthographicSize = binnocSize;

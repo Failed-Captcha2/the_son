@@ -2235,8 +2235,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: American Robin
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 84dc4ad9adbae68488e819114bc4491f, type: 2}
-  m_sharedMaterial: {fileID: 5620870550293063520, guid: 84dc4ad9adbae68488e819114bc4491f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 31baf444d8c731e4ab41f22d8470808e, type: 2}
+  m_sharedMaterial: {fileID: -3071668396283054137, guid: 31baf444d8c731e4ab41f22d8470808e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2325,7 +2325,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5620870550293063520, guid: 84dc4ad9adbae68488e819114bc4491f, type: 2}
+  - {fileID: -3071668396283054137, guid: 31baf444d8c731e4ab41f22d8470808e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

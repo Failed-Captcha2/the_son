@@ -37,8 +37,7 @@ public class BirdBook : MonoBehaviour
 
     void OnMouseDown()
     {
-        birdNum++;
-        updatePage(birdNum);
+        updatePage(birdNum+1);
     }
 
     public void updatePage(int num)
@@ -50,10 +49,10 @@ public class BirdBook : MonoBehaviour
 
         //set right button active/inactive
         if (birdNum == sprites.Length - 1) { gameObject.SetActive(false); }
-        if (birdNum == sprites.Length - 2) { gameObject.SetActive(true); }
+        else { gameObject.SetActive(true); }
         //set left button active/inactive
         if (birdNum == 0) { leftButton.SetActive(false); }
-        if (birdNum == 1) { leftButton.SetActive(true); }
+        else{ leftButton.SetActive(true); }
     }
 
 }

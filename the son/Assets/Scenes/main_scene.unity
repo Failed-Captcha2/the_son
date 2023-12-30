@@ -1397,7 +1397,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 57dff4986a39007419e1cf4e7de24c5c, type: 3}
   label: {fileID: 1525193746}
   leftButton: {fileID: 258769815}
-  birdNames: []
+  birdNames:
+  - Eastern Kingbird
   birdNum: 0
 --- !u!60 &948784610
 PolygonCollider2D:

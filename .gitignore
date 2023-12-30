@@ -3,3 +3,4 @@ android build*
 desktop build*
 *.log
 the son/Temp/*
+the son/Assets/TextMesh Pro/*

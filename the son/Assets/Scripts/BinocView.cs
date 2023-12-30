@@ -10,9 +10,9 @@ public class BinocView : MonoBehaviour
     public float cameraSpeed;
     public SpriteRenderer bird;
 
-    private Transform binocViewPos;
+    public Transform binocViewPos;
     private Vector3 move;
-    private Vector3 originalPos;
+    public Vector3 originalPos;
     public bool birdInView;
     public float maxDistance;
     // Start is called before the first frame update
@@ -29,7 +29,7 @@ public class BinocView : MonoBehaviour
     {
         binocViewPos.transform.position = cameraPos.position + new Vector3(0, 0, 2); //folow camera with binoc view screen
         if (birdInView && pixelate.GetFloat("_Pixelate") < 40) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") + pixelationSpeed); } //increase pixels if bird is within view
-        else if (!birdInView && pixelate.GetFloat("_Pixelate") > 2) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") - pixelationSpeed); } //decrease pixels if bird is out of view
+        else if (!birdInView && pixelate.GetFloat("_Pixelate") > 2) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") - 2*pixelationSpeed); } //decrease pixels if bird is out of view
 
         move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); //key input
         if (!move.Equals(Vector3.zero)) { moveCamera(); }

@@ -8,6 +8,7 @@ public class BinocularController : MonoBehaviour
     public Transform cameraTransform;
     public Camera mainCamera;
     public GameObject binocViewScreen;
+    public BinocView binocViewScript;
     public BirdBook book;
     public Material pixelation;
     public Sprite[] sprites; //[0] is binnocs.png, [1] is eye.png
@@ -71,6 +72,7 @@ public class BinocularController : MonoBehaviour
             //zoom in to binnoc view
             mainCamera.orthographicSize = binnocSize;
             cameraTransform.localScale = new Vector3(binnocSize, binnocSize, 1f);
+            binocViewScript.originalPos = new Vector3(cameraTransform.position.x,cameraTransform.position.y,0f);
             binnocView = true;
         }
     }

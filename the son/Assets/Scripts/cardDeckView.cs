@@ -25,7 +25,7 @@ public class cardDeckView : MonoBehaviour
 
     public void ObtainCard(Sprite sprite, string name){
         //create new card
-        GameObject newCard = Instantiate(card, cardDeckViewPos); //create card
+        GameObject newCard = Instantiate(card, this.transform); //create card
 
         Transform newCardPos = newCard.GetComponent<Transform>(); //position card
         newCardPos.transform.localPosition = new Vector3(0, 0, -0.5f);

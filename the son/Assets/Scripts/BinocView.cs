@@ -68,11 +68,11 @@ public class BinocView : MonoBehaviour
 
             //update bird sprite on card
             cardImage.sprite = birdController.birdSprites[birdController.birdNum];
-            cardImageTransform.localScale = new Vector3 (25/cardImage.sprite.rect.height, 25/cardImage.sprite.rect.height,1);
+            cardImageTransform.localScale = new Vector3 (40/cardImage.sprite.rect.height, 40/cardImage.sprite.rect.height,1);
 
             //update card and obtained text to show correct bird name
             cardLabel.text = birdController.birdSprites[birdController.birdNum].name;
-            obtainedLabel.text = cardLabel.text + "Card Obtained!";
+            obtainedLabel.text = cardLabel.text + " Card Obtained!";
 
             //position bird card correctly
             cardPos.transform.position = new Vector3(cameraPos.position.x+ 0.296f, cameraPos.position.y - 0.069f, -9);
@@ -82,7 +82,7 @@ public class BinocView : MonoBehaviour
         }
 
         //gradually scale up card
-        if (cardObtained && cardPos.localScale.x < 1)
+        if (cardObtained && cardPos.localScale.x < .5)
         {
             cardPos.transform.localScale += new Vector3(1, 1, 0) * Time.deltaTime;
         }

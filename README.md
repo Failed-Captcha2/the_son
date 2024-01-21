@@ -1,5 +1,5 @@
 # the_son ![robin](https://github.com/Failed-Captcha2/the_son/blob/bd03f0142731c72497af779c1115c06ce8919fc1/the%20son/Assets/Art/Birds/robin.png)
-A 2D Unity game where you watch birds. Compatible with PC, Android, and iOS. 
+A 2D Unity game where you watch birds. Compatible with windows and android. 
 
 There are 3 main game mechanics;
 1. Bird Watching - toggle binocular view and carefully ID the bird infront of you to add it to your bird card deck

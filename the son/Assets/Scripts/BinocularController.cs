@@ -5,6 +5,7 @@ using UnityEngine;
 public class BinocularController : MonoBehaviour
 {
     public GameObject player;
+    public GameObject card;
     public Transform cameraTransform;
     public Camera mainCamera;
     public GameObject binocViewScreen;
@@ -58,9 +59,12 @@ public class BinocularController : MonoBehaviour
             cameraTransform.localScale = new Vector3(defaultSize, defaultSize, 1f);
 
             player.SetActive(true);//show player
+            card.SetActive(false);
             binocViewScreen.SetActive(false);//hide binocular view screen
             pixelation.SetFloat("_Pixelate", 2);
             binnocView = false;
+
+
 
         }
         else

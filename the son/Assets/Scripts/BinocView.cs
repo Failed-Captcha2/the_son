@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BinocView : MonoBehaviour
 {
@@ -22,12 +23,22 @@ public class BinocView : MonoBehaviour
     private Transform cardPos;
     private AudioSource tada;
     private Transform binocViewPos;
+    private SpriteRenderer cardImage;
+    private Transform cardImageTransform;
+    private TextMeshPro cardLabel;
+    private TextMeshPro obtainedLabel;
     // Start is called before the first frame update
     void Start()
     {
         binocViewPos = GetComponent<Transform>();
         tada = GetComponent<AudioSource>();
         cardPos = card.GetComponent<Transform>();
+        cardImage = card.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        cardImageTransform = card.gameObject.transform.GetChild(0).GetComponent<Transform>();
+        cardLabel = card.gameObject.transform.GetChild(1).GetComponent<TextMeshPro>();
+        obtainedLabel = card.gameObject.transform.GetChild(3).GetComponent<TextMeshPro>();
+
+
 
         cardPos.transform.localScale = new Vector3(0, 0, 1);
         card.SetActive(false);
@@ -53,6 +64,16 @@ public class BinocView : MonoBehaviour
             Debug.Log("ggs");
             if (!tada.isPlaying) { tada.Play(); } //play sound
             card.SetActive(true); //show card
+
+            //update bird sprite on card
+            cardImage.sprite = birdController.birdSprites[birdController.birdNum];
+            cardImageTransform.localScale = new Vector3 (25/cardImage.sprite.rect.height, 25/cardImage.sprite.rect.height,1);
+
+            //update card and obtained text to show correct bird name
+            cardLabel.text = birdController.birdSprites[birdController.birdNum].name;
+            obtainedLabel.text = cardLabel.text + "Card Obtained!";
+
+            //position bird card correctly
             cardPos.transform.position = new Vector3(cameraPos.position.x+ 0.296f, cameraPos.position.y - 0.069f, -9);
             cardObtained = true;
         }
@@ -63,11 +84,13 @@ public class BinocView : MonoBehaviour
             cardPos.transform.localScale += new Vector3(1, 1, 0) * Time.deltaTime;
         }
 
-        move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); //key input
+        //move with key input
+        move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (!move.Equals(Vector3.zero)) { moveCamera(); }
     }
 
-    void OnMouseDrag() //touchscreen/mouse input
+    //move with touchscreen/ mouse input
+    void OnMouseDrag()
     {
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -101,6 +124,7 @@ public class BinocView : MonoBehaviour
 
     }
 
+    //detect when bird is in or out of view
     void OnTriggerEnter2D(Collider2D other) { birdInView = true; }
     void OnTriggerExit2D(Collider2D other) { birdInView = false; }
 }

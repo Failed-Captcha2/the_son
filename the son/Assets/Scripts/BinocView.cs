@@ -13,6 +13,7 @@ public class BinocView : MonoBehaviour
     public BirdBook book;
     public BirdController birdController;
     public GameObject card;
+    public cardDeckView cardDeck;
 
     private Vector3 move;
     public Vector3 originalPos;
@@ -54,9 +55,9 @@ public class BinocView : MonoBehaviour
         binocViewPos.transform.position = cameraPos.position + new Vector3(0, 0, 2); //folow camera with binoc view screen
 
         //increase pixels if bird is within view
-        if (birdInView && pixelate.GetFloat("_Pixelate") < 40) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") + pixelationSpeed); }
+        if (birdInView && pixelate.GetFloat("_Pixelate") < 40) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") + pixelationSpeed*Time.deltaTime); }
         //decrease pixels if bird is out of view
-        else if (!birdInView && pixelate.GetFloat("_Pixelate") > 2) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") - 2 * pixelationSpeed); }
+        else if (!birdInView && pixelate.GetFloat("_Pixelate") > 2) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") - 2 * pixelationSpeed*Time.deltaTime); }
 
         //when bird is fully visible(not pixelated) and bird book matches, obtain a bird card
         if (birdInView && pixelate.GetFloat("_Pixelate") >= 39 && book.birdNum == birdController.birdNum && !cardObtained)
@@ -76,6 +77,8 @@ public class BinocView : MonoBehaviour
             //position bird card correctly
             cardPos.transform.position = new Vector3(cameraPos.position.x+ 0.296f, cameraPos.position.y - 0.069f, -9);
             cardObtained = true;
+
+            cardDeck.ObtainCard(birdController.birdSprites[birdController.birdNum], birdController.birdSprites[birdController.birdNum].name);
         }
 
         //gradually scale up card

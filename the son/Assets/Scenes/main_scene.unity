@@ -485,12 +485,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraPos: {fileID: 1259101196}
   pixelate: {fileID: 2100000, guid: db4fa4277d74d8e428a67800c030e3c6, type: 2}
-  pixelationSpeed: 0.01
+  pixelationSpeed: 1
   cameraSpeed: 0.2
   bird: {fileID: 1965075902}
   book: {fileID: 948784609}
   birdController: {fileID: 1965075906}
   card: {fileID: 1506323543}
+  cardDeck: {fileID: 311843861}
   originalPos: {x: 0, y: 0, z: 0}
   birdInView: 0
   maxDistance: 1
@@ -736,6 +737,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultPos: {x: 2.098, y: -1.113, z: 1}
   cameraPos: {fileID: 1259101196}
+  cardDeckView: {fileID: 311843858}
+  player: {fileID: 1275895962}
+  binnocs: {fileID: 685774625}
 --- !u!60 &42500311
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1197,13 +1201,14 @@ GameObject:
   m_Component:
   - component: {fileID: 311843860}
   - component: {fileID: 311843859}
+  - component: {fileID: 311843861}
   m_Layer: 0
   m_Name: cardDeckView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &311843859
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1264,13 +1269,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 311843858}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08003163, y: -0.030774208, z: -9}
+  m_LocalPosition: {x: 0, y: 0, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &311843861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311843858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f5929b7d3ff95488da27eaf18cab49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card: {fileID: 1506323543}
+  cards: []
 --- !u!1 &450402788
 GameObject:
   m_ObjectHideFlags: 0

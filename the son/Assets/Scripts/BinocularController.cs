@@ -26,6 +26,7 @@ public class BinocularController : MonoBehaviour
     {
         binnocPos = GetComponent<Transform>();
         viewSprite = GetComponent<SpriteRenderer>();
+        
         //set camera to default size
         mainCamera.orthographicSize = defaultSize;
         cameraTransform.localScale = new Vector3(defaultSize, defaultSize, 1f);

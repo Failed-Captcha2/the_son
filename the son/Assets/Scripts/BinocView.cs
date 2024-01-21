@@ -9,27 +9,59 @@ public class BinocView : MonoBehaviour
     public float pixelationSpeed;
     public float cameraSpeed;
     public SpriteRenderer bird;
+    public BirdBook book;
+    public BirdController birdController;
+    public GameObject card;
 
-    public Transform binocViewPos;
     private Vector3 move;
     public Vector3 originalPos;
     public bool birdInView;
     public float maxDistance;
+    public bool cardObtained;
+
+    private Transform cardPos;
+    private AudioSource tada;
+    private Transform binocViewPos;
     // Start is called before the first frame update
     void Start()
     {
         binocViewPos = GetComponent<Transform>();
+        tada = GetComponent<AudioSource>();
+        cardPos = card.GetComponent<Transform>();
+
+        cardPos.transform.localScale = new Vector3(0, 0, 1);
+        card.SetActive(false);
         originalPos = binocViewPos.position;
         gameObject.SetActive(false);
         pixelate.SetFloat("_Pixelate", 2);
+
     }
 
     // Update is called once per frame
     void Update()
     {
         binocViewPos.transform.position = cameraPos.position + new Vector3(0, 0, 2); //folow camera with binoc view screen
-        if (birdInView && pixelate.GetFloat("_Pixelate") < 40) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") + pixelationSpeed); } //increase pixels if bird is within view
-        else if (!birdInView && pixelate.GetFloat("_Pixelate") > 2) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") - 2*pixelationSpeed); } //decrease pixels if bird is out of view
+
+        //increase pixels if bird is within view
+        if (birdInView && pixelate.GetFloat("_Pixelate") < 40) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") + pixelationSpeed); }
+        //decrease pixels if bird is out of view
+        else if (!birdInView && pixelate.GetFloat("_Pixelate") > 2) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") - 2 * pixelationSpeed); }
+
+        //when bird is fully visible(not pixelated) and bird book matches, obtain a bird card
+        if (birdInView && pixelate.GetFloat("_Pixelate") >= 39 && book.birdNum == birdController.birdNum && !cardObtained)
+        {
+            Debug.Log("ggs");
+            if (!tada.isPlaying) { tada.Play(); } //play sound
+            card.SetActive(true); //show card
+            cardPos.transform.position = new Vector3(cameraPos.position.x+ 0.296f, cameraPos.position.y - 0.069f, -9);
+            cardObtained = true;
+        }
+
+        //gradually scale up card
+        if (cardObtained && cardPos.localScale.x < 1)
+        {
+            cardPos.transform.localScale += new Vector3(1, 1, 0) * Time.deltaTime;
+        }
 
         move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); //key input
         if (!move.Equals(Vector3.zero)) { moveCamera(); }

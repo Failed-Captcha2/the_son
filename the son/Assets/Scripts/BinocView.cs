@@ -55,12 +55,12 @@ public class BinocView : MonoBehaviour
         binocViewPos.transform.position = cameraPos.position + new Vector3(0, 0, 2); //folow camera with binoc view screen
 
         //increase pixels if bird is within view
-        if (birdInView && pixelate.GetFloat("_Pixelate") < 40) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") + pixelationSpeed*Time.deltaTime); }
+        if (birdInView && pixelate.GetFloat("_Pixelate") < birdController.maxPixels) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") + pixelationSpeed*Time.deltaTime); }
         //decrease pixels if bird is out of view
         else if (!birdInView && pixelate.GetFloat("_Pixelate") > 2) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") - 2 * pixelationSpeed*Time.deltaTime); }
 
         //when bird is fully visible(not pixelated) and bird book matches, obtain a bird card
-        if (birdInView && pixelate.GetFloat("_Pixelate") >= 39 && book.birdNum == birdController.birdNum && !cardObtained)
+        if (birdInView && pixelate.GetFloat("_Pixelate") >= birdController.maxPixels-1 && book.birdNum == birdController.birdNum && !cardObtained)
         {
             Debug.Log("ggs");
             if (!tada.isPlaying) { tada.Play(); } //play sound
@@ -68,14 +68,14 @@ public class BinocView : MonoBehaviour
 
             //update bird sprite on card
             cardImage.sprite = birdController.birdSprites[birdController.birdNum];
-            cardImageTransform.localScale = new Vector3 (40/cardImage.sprite.rect.height, 40/cardImage.sprite.rect.height,1);
+            cardImageTransform.localScale = new Vector3 (45/cardImage.sprite.rect.height, 45/cardImage.sprite.rect.height,1);
 
             //update card and obtained text to show correct bird name
             cardLabel.text = birdController.birdSprites[birdController.birdNum].name;
             obtainedLabel.text = cardLabel.text + " Card Obtained!";
 
             //position bird card correctly
-            cardPos.transform.position = new Vector3(cameraPos.position.x+ 0.296f, cameraPos.position.y - 0.069f, -9);
+            cardPos.transform.position = new Vector3(cameraPos.position.x, cameraPos.position.y, -9);
             cardObtained = true;
 
             cardDeck.ObtainCard(birdController.birdSprites[birdController.birdNum], birdController.birdSprites[birdController.birdNum].name);
@@ -95,17 +95,20 @@ public class BinocView : MonoBehaviour
     //move with touchscreen/ mouse input
     void OnMouseDrag()
     {
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (!cardObtained)
+        {
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        //get x direction
-        if (worldPosition.x < binocViewPos.position.x - 0.2) { move.x = -1; }
-        else if (worldPosition.x > binocViewPos.position.x + 0.2) { move.x = 1; }
+            //get x direction
+            if (worldPosition.x < binocViewPos.position.x - 0.2) { move.x = -1; }
+            else if (worldPosition.x > binocViewPos.position.x + 0.2) { move.x = 1; }
 
-        //get y direction
-        if (worldPosition.y < binocViewPos.position.y - 0.2) { move.y = -1; }
-        else if (worldPosition.y > binocViewPos.position.y + 0.2) { move.y = 1; }
+            //get y direction
+            if (worldPosition.y < binocViewPos.position.y - 0.2) { move.y = -1; }
+            else if (worldPosition.y > binocViewPos.position.y + 0.2) { move.y = 1; }
 
-        moveCamera();
+            moveCamera();
+        }
     }
 
     void moveCamera() //move binoc view

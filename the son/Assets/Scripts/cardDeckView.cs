@@ -32,8 +32,9 @@ public class cardDeckView : MonoBehaviour
         newCardPos.transform.localScale = Vector3.one;
 
         newCard.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = sprite; //change sprite
+        newCard.gameObject.transform.GetChild(0).GetComponent<Transform>().transform.localScale = new Vector3(45/sprite.rect.height,45/sprite.rect.height,1); //change sprite
         newCard.gameObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = name; //change name
-        Destroy(newCard.gameObject.transform.GetChild(3).gameObject); //remove obtained text
+        newCard.SetActive(true);
         totalCards++;
 
         // add new card to array

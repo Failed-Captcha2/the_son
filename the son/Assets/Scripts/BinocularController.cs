@@ -12,22 +12,24 @@ public class BinocularController : MonoBehaviour
     public BinocView binocViewScript;
     public BirdBook book;
     public Material pixelation;
-    public Sprite[] sprites; //[0] is binnocs.png, [1] is eye.png
+    public Sprite[] sprites; //[0] is binocs.png, [1] is eye.png
 
-    private Transform binnocPos;
+    private Transform binocPos;
+    private Transform playerPos;
     private SpriteRenderer viewSprite;
-    private bool binnocView;
+    private bool binocView;
 
     public float defaultSize = 1.5f;
-    public float binnocSize = 0.5f;
+    public float binocSize = 0.5f;
     public Vector3 defaultPos = new Vector3(2.75f, -1.15f, 1f);
-    public Vector3 binnocViewPos = new Vector3(1.17f, -0.68f, 1f);
+    public Vector3 binocViewPos = new Vector3(1.17f, -0.68f, 1f);
     // Start is called before the first frame update
     void Start()
     {
-        binnocPos = GetComponent<Transform>();
+        binocPos = GetComponent<Transform>();
         viewSprite = GetComponent<SpriteRenderer>();
-        
+        playerPos = player.GetComponent<Transform>();
+
         //set camera to default size
         mainCamera.orthographicSize = defaultSize;
         cameraTransform.localScale = new Vector3(defaultSize, defaultSize, 1f);
@@ -36,49 +38,50 @@ public class BinocularController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //move binnoculars with camera (if made child of camra OnMouseDown stops working)
-        if (!binnocView)
+        //move binoculars with camera (if made child of camra OnMouseDown stops working)
+        if (!binocView)
         {
-            binnocPos.transform.position = cameraTransform.position + defaultPos;
+            binocPos.transform.position = cameraTransform.position + defaultPos;
         }
         else
         {
-            binnocPos.transform.position = cameraTransform.position + binnocViewPos;
+            binocPos.transform.position = cameraTransform.position + binocViewPos;
         }
     }
 
     void OnMouseDown()
     {
 
-        if (binnocView)
-        {                         //switch to default view
-            viewSprite.sprite = sprites[0]; //change to binnoc sprite
+        if (binocView) { DefaultViewOn(); }
+        else{ BinocViewOn(); }
+    }
 
-            //zoom out to default view
-            mainCamera.orthographicSize = defaultSize;
-            cameraTransform.localScale = new Vector3(defaultSize, defaultSize, 1f);
+    public void DefaultViewOn(){
+        viewSprite.sprite = sprites [0]; //change to binoc sprite
 
-            player.SetActive(true);//show player
-            card.SetActive(false);
-            binocViewScreen.SetActive(false);//hide binocular view screen
-            pixelation.SetFloat("_Pixelate", 2);
-            binnocView = false;
+        //zoom out to default view
+        mainCamera.orthographicSize = defaultSize;
+        cameraTransform.localScale = new Vector3(defaultSize, defaultSize, 1f);
 
+         player.SetActive(true);//show player
+        card.SetActive(false);
+        binocViewScreen.SetActive(false);//hide binocular view screen
+         pixelation.SetFloat("_Pixelate", 2);
+        binocView = false;
+        binocViewScript.cardObtained = false;
+    }
 
+    public void BinocViewOn(){
+        player.SetActive(false);//hide player
+        binocViewScreen.SetActive(true);//show binocular view screen
+        viewSprite.sprite = sprites [1];//change to eye sprite
+        book.updatePage(0);
 
-        }
-        else
-        {                                  //switch to binnoc view
-            player.SetActive(false);//hide player
-            binocViewScreen.SetActive(true);//show binocular view screen
-            viewSprite.sprite = sprites[1];//change to eye sprite
-            book.updatePage(0);
-
-            //zoom in to binnoc view
-            mainCamera.orthographicSize = binnocSize;
-            cameraTransform.localScale = new Vector3(binnocSize, binnocSize, 1f);
-            binocViewScript.originalPos = new Vector3(cameraTransform.position.x,cameraTransform.position.y,0f);
-            binnocView = true;
-        }
+        //zoom in to binoc view
+        mainCamera.orthographicSize = binocSize;
+        cameraTransform.localScale = new Vector3(binocSize, binocSize, 1f);
+        cameraTransform.transform.position = new Vector3(playerPos.position.x, playerPos.position.y, -10);
+        binocViewScript.originalPos = new Vector3(cameraTransform.position.x, cameraTransform.position.y, 0f);
+        binocView = true;
     }
 }

@@ -6,40 +6,47 @@ using TMPro;
 public class BinocView : MonoBehaviour
 {
     public Transform cameraPos;
-    public Material pixelate;
-    public float pixelationSpeed;
     public float cameraSpeed;
-    public SpriteRenderer bird;
+    public Vector3 originalPos;
+    public float maxDistance;
+    private Transform binocViewPos;
+    private Vector3 move;
+
     public BirdBook book;
-    public BirdController birdController;
+
+    //bird related variables
+    public GameObject bird;
+    public  Material pixelate;
+    private BirdController birdController;
+
+    //card variables
     public GameObject card;
     public cardDeckView cardDeck;
-
-    private Vector3 move;
-    public Vector3 originalPos;
-    public bool birdInView;
-    public float maxDistance;
     public bool cardObtained;
-
     private Transform cardPos;
-    private AudioSource tada;
-    private Transform binocViewPos;
     private SpriteRenderer cardImage;
     private Transform cardImageTransform;
     private TextMeshPro cardLabel;
     private TextMeshPro obtainedLabel;
+    private AudioSource tada;
+   
     // Start is called before the first frame update
     void Start()
     {
+        //get components
         binocViewPos = GetComponent<Transform>();
         tada = GetComponent<AudioSource>();
+
+        //bird components
+        pixelate = bird.GetComponent<SpriteRenderer>().material;
+        birdController = bird.GetComponent<BirdController>();
+
+        //card components
         cardPos = card.GetComponent<Transform>();
         cardImage = card.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
         cardImageTransform = card.gameObject.transform.GetChild(0).GetComponent<Transform>();
         cardLabel = card.gameObject.transform.GetChild(1).GetComponent<TextMeshPro>();
         obtainedLabel = card.gameObject.transform.GetChild(3).GetComponent<TextMeshPro>();
-
-
 
         cardPos.transform.localScale = new Vector3(0, 0, 1);
         card.SetActive(false);
@@ -53,33 +60,6 @@ public class BinocView : MonoBehaviour
     void Update()
     {
         binocViewPos.transform.position = cameraPos.position + new Vector3(0, 0, 2); //folow camera with binoc view screen
-
-        //increase pixels if bird is within view
-        if (birdInView && pixelate.GetFloat("_Pixelate") < birdController.maxPixels) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") + pixelationSpeed*Time.deltaTime); }
-        //decrease pixels if bird is out of view
-        else if (!birdInView && pixelate.GetFloat("_Pixelate") > 2) { pixelate.SetFloat("_Pixelate", pixelate.GetFloat("_Pixelate") - 2 * pixelationSpeed*Time.deltaTime); }
-
-        //when bird is fully visible(not pixelated) and bird book matches, obtain a bird card
-        if (birdInView && pixelate.GetFloat("_Pixelate") >= birdController.maxPixels-1 && book.birdNum == birdController.birdNum && !cardObtained)
-        {
-            Debug.Log("ggs");
-            if (!tada.isPlaying) { tada.Play(); } //play sound
-            card.SetActive(true); //show card
-
-            //update bird sprite on card
-            cardImage.sprite = birdController.birdSprites[birdController.birdNum];
-            cardImageTransform.localScale = new Vector3 (45/cardImage.sprite.rect.height, 45/cardImage.sprite.rect.height,1);
-
-            //update card and obtained text to show correct bird name
-            cardLabel.text = birdController.birdSprites[birdController.birdNum].name;
-            obtainedLabel.text = cardLabel.text + " Card Obtained!";
-
-            //position bird card correctly
-            cardPos.transform.position = new Vector3(cameraPos.position.x, cameraPos.position.y, -9);
-            cardObtained = true;
-
-            cardDeck.ObtainCard(birdController.birdSprites[birdController.birdNum], birdController.birdSprites[birdController.birdNum].name);
-        }
 
         //gradually scale up card
         if (cardObtained && cardPos.localScale.x < .5)
@@ -130,7 +110,30 @@ public class BinocView : MonoBehaviour
 
     }
 
+    public void ObtainCardAnimation(Sprite sprite, string name)
+    {
+        Debug.Log("ggs");
+        if (!tada.isPlaying) { tada.Play(); } //play sound
+        card.SetActive(true); //show card
+
+        //update bird sprite on card
+        cardImage.sprite = sprite;
+        cardImageTransform.localScale = new Vector3(45 / cardImage.sprite.rect.height, 45 / cardImage.sprite.rect.height, 1);
+
+        //update card and obtained text to show correct bird name
+        cardLabel.text = name;
+        obtainedLabel.text = name + " Card Obtained!";
+
+        //position bird card correctly
+        cardPos.transform.position = new Vector3(cameraPos.position.x, cameraPos.position.y, -9);
+        cardPos.transform.localScale = new Vector3(0, 0, 1);
+        cardObtained = true;
+
+        cardDeck.ObtainCard(sprite, name);
+    }
+
     //detect when bird is in or out of view
-    void OnTriggerEnter2D(Collider2D other) { birdInView = true; }
-    void OnTriggerExit2D(Collider2D other) { birdInView = false; }
+    void OnTriggerEnter2D(Collider2D other) { other.GetComponent<BirdController>().birdInView = true; }
+    void OnTriggerExit2D(Collider2D other) { other.GetComponent<BirdController>().birdInView = false; }
+
 }

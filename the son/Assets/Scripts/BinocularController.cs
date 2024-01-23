@@ -11,13 +11,12 @@ public class BinocularController : MonoBehaviour
     public GameObject binocViewScreen;
     public BinocView binocViewScript;
     public BirdBook book;
-    public Material pixelation;
     public Sprite[] sprites; //[0] is binocs.png, [1] is eye.png
 
     private Transform binocPos;
     private Transform playerPos;
     private SpriteRenderer viewSprite;
-    private bool binocView;
+   public bool binocView;
 
     public float defaultSize = 1.5f;
     public float binocSize = 0.5f;
@@ -63,10 +62,9 @@ public class BinocularController : MonoBehaviour
         mainCamera.orthographicSize = defaultSize;
         cameraTransform.localScale = new Vector3(defaultSize, defaultSize, 1f);
 
-         player.SetActive(true);//show player
-        card.SetActive(false);
+        player.SetActive(true);//show player
+        card.SetActive(false);//hide card
         binocViewScreen.SetActive(false);//hide binocular view screen
-         pixelation.SetFloat("_Pixelate", 2);
         binocView = false;
         binocViewScript.cardObtained = false;
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class cardObtained : MonoBehaviour
 {
+    public Transform cardTransform;
     public BinocularController binocController;
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,6 @@ public class cardObtained : MonoBehaviour
     }
 
     void OnMouseDown(){
-        binocController.DefaultViewOn();
+        if(cardTransform.localScale.x >= 0.5){binocController.DefaultViewOn(); }
     }
 }

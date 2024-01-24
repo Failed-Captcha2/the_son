@@ -21,7 +21,7 @@ public class BinocView : MonoBehaviour
 
     //card variables
     public GameObject card;
-    public cardDeckView cardDeck;
+    public CardDeckView cardDeck;
     public bool cardObtained;
     private Transform cardPos;
     private SpriteRenderer cardImage;

@@ -1188,6 +1188,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   book: {fileID: 948784609}
+  cardView: {fileID: 0}
+  direction: -1
 --- !u!1 &311843858
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,7 +1207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &311843859
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1289,6 +1291,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 578283297}
+  leftArrow: {fileID: 1701912625}
+  rightArrow: {fileID: 1921125757}
+  lastCard: 0
+  num: 0
+  totalCards: 0
   cards: []
 --- !u!1 &450402788
 GameObject:
@@ -1656,8 +1663,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578283297}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.324, y: -0.045, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.50914794}
+  m_LocalPosition: {x: -0.53, y: 0.026000002, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0.50914794}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1539509845}
@@ -5288,8 +5295,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1701912626}
   - component: {fileID: 1701912627}
+  - component: {fileID: 1701912628}
+  - component: {fileID: 1701912629}
   m_Layer: 0
-  m_Name: right button
+  m_Name: left button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5362,6 +5371,47 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1701912628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701912625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8362fbf794f3a874e96a9a628f99e754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  book: {fileID: 0}
+  cardView: {fileID: 311843861}
+  direction: -1
+--- !u!61 &1701912629
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701912625}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.6, y: 0.3}
+    newSize: {x: 0.6, y: 0.3}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.6, y: 0.3}
+  m_EdgeRadius: 0
 --- !u!1 &1722817468
 GameObject:
   m_ObjectHideFlags: 0
@@ -5655,8 +5705,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1921125758}
   - component: {fileID: 1921125759}
+  - component: {fileID: 1921125761}
+  - component: {fileID: 1921125762}
   m_Layer: 0
-  m_Name: left button
+  m_Name: right button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5729,6 +5781,47 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1921125761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921125757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8362fbf794f3a874e96a9a628f99e754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  book: {fileID: 0}
+  cardView: {fileID: 311843861}
+  direction: 1
+--- !u!61 &1921125762
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921125757}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.6, y: 0.3}
+    newSize: {x: 0.6, y: 0.3}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.6, y: 0.3}
+  m_EdgeRadius: 0
 --- !u!1 &1965075901
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cardDeckController : MonoBehaviour
+public class CardDeckController : MonoBehaviour
 {
     public Vector3 defaultPos;
     public Transform cameraPos;

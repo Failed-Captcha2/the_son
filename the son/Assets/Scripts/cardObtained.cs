@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cardObtained : MonoBehaviour
+public class CardObtained : MonoBehaviour
 {
     public Transform cardTransform;
     public BinocularController binocController;

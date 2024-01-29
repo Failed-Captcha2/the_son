@@ -69,7 +69,7 @@ public class BinocView : MonoBehaviour
 
         //move with key input
         move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        if (!move.Equals(Vector3.zero)) { moveCamera(); }
+        if (!move.Equals(Vector3.zero)&&!cardObtained) { moveCamera(); }
     }
 
     //move with touchscreen/ mouse input
@@ -128,6 +128,14 @@ public class BinocView : MonoBehaviour
         cardPos.transform.position = new Vector3(cameraPos.position.x, cameraPos.position.y, -9);
         cardPos.transform.localScale = new Vector3(0, 0, 1);
         cardObtained = true;
+
+        card.gameObject.transform.GetChild(4).gameObject.SetActive(true);
+        for (int i = 0; i < cardDeck.names.Length; i++) {
+            if (cardDeck.names[i].Equals(name)) {
+                card.gameObject.transform.GetChild(4).gameObject.SetActive(false);
+                break;
+            }
+        }
 
         cardDeck.ObtainCard(sprite, name);
     }

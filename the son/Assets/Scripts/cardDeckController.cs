@@ -7,6 +7,7 @@ public class CardDeckController : MonoBehaviour
     public Vector3 defaultPos;
     public Transform cameraPos;
     public GameObject cardDeckView;
+    public CardDeckView cardDeck;
     public GameObject player;
     public GameObject binnocs;
 
@@ -41,6 +42,10 @@ public class CardDeckController : MonoBehaviour
         }
         else
         {
+            for(int i = 0; i<cardDeck.cards.Length;i++){
+                cardDeck.cards[i].gameObject.transform.GetChild(3).gameObject.SetActive(false);
+            }
+
             cardDeckView.SetActive(false);
             player.SetActive(true);
             binnocs.SetActive(true);

@@ -735,6 +735,7 @@ MonoBehaviour:
   defaultPos: {x: 2.098, y: -1.113, z: 1}
   cameraPos: {fileID: 1259101196}
   cardDeckView: {fileID: 311843858}
+  cardDeck: {fileID: 311843861}
   player: {fileID: 1275895962}
   binnocs: {fileID: 685774625}
 --- !u!60 &42500311
@@ -1297,6 +1298,7 @@ MonoBehaviour:
   num: 0
   totalCards: 0
   cards: []
+  names: []
 --- !u!1 &450402788
 GameObject:
   m_ObjectHideFlags: 0

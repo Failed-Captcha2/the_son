@@ -15,6 +15,7 @@ public class CardDeckView : MonoBehaviour
     public int totalCards;
     private float[] xPositions = {-1.6f, -0.53f, 0.53f, 1.6f};
     public GameObject[] cards;
+    public string[] names;
 
     // Start is called before the first frame update
     void Start()
@@ -48,11 +49,15 @@ public class CardDeckView : MonoBehaviour
 
         // add new card to array
         GameObject[] cardsCopy = cards;
+        string[] namesCopy = names;
         cards = new GameObject[totalCards];
+        names = new string[totalCards];
         for(int i=0; i<totalCards-1; i++){
             cards[i] = cardsCopy[i];
+            names[i] = namesCopy[i];
         }
         cards[totalCards-1] = newCard;
+        names[totalCards - 1] = name;
         updatePage(0);
     }
 

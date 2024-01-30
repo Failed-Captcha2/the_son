@@ -27,6 +27,7 @@ public class CardDeckView : MonoBehaviour
         card.SetActive(false);
 
         totalCards = cards.Length;
+        updatePage(0);
     }
 
     // Update is called once per frame
@@ -85,6 +86,6 @@ public class CardDeckView : MonoBehaviour
 
         //set arrows active/inactive
         leftArrow.SetActive(num!=0);
-        rightArrow.SetActive(lastCard!=num);
+        rightArrow.SetActive(lastCard<totalCards-1);
     }
 }

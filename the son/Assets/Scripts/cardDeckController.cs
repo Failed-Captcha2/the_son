@@ -6,6 +6,7 @@ public class CardDeckController : MonoBehaviour
 {
     public Vector3 defaultPos;
     public Transform cameraPos;
+    public Rigidbody2D cameraRB;
     public GameObject cardDeckView;
     public CardDeckView cardDeck;
     public GameObject player;
@@ -35,6 +36,7 @@ public class CardDeckController : MonoBehaviour
         {
             cardDeckView.SetActive(true);
             cardDeckViewPos.transform.position = new Vector3(0, 0, 1.5f) + cameraPos.position;
+            cameraRB.velocity = Vector3.zero;
             player.SetActive(false);
             binnocs.SetActive(false);
 
